@@ -1,0 +1,6 @@
+{
+  "name": "NexSketch",
+  "description": "Offline digital drawing and art studio. Sketch, paint, design, and illustrate completely offline with infinite canvas, multiple layers, custom brush tools, shapes, snap-to-grid, perspective guide, and drawing timelapse.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

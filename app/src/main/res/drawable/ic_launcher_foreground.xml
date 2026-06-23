@@ -1,0 +1,45 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Artistic Palette Base Plate -->
+    <path
+        android:fillColor="#ECECF4"
+        android:pathData="M 54,20 C 32,20 18,34 18,54 C 18,72 28,86 48,86 C 56,86 60,80 68,80 C 76,80 86,84 86,72 C 86,54 76,20 54,20 Z" />
+    
+    <!-- Thumbhole Cutting -->
+    <path
+        android:fillColor="#161622"
+        android:pathData="M 38,68 A 5,5 0 1,1 38,67.9 Z" />
+
+    <!-- Vibrant Paint Blob Pools -->
+    <path
+        android:fillColor="#FA1C6D"
+        android:pathData="M 36,36 A 4.5,4.5 0 1,1 36,35.9 Z" />
+    <path
+        android:fillColor="#05D9E8"
+        android:pathData="M 50,30 A 4.5,4.5 0 1,1 50,29.9 Z" />
+    <path
+        android:fillColor="#01FE87"
+        android:pathData="M 64,36 A 4.5,4.5 0 1,1 64,35.9 Z" />
+    <path
+        android:fillColor="#FF9F1C"
+        android:pathData="M 72,50 A 4.5,4.5 0 1,1 72,49.9 Z" />
+
+    <!-- Paintbrush Handle -->
+    <path
+        android:fillColor="#6366F1"
+        android:pathData="M 24,84 L 80,28 L 84,32 L 28,88 Z" />
+    
+    <!-- Brush Golden Tip -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M 80,28 L 86,22 C 87,21 88,22 89,23 L 84,32 Z" />
+    
+    <!-- Wet Paint Bristle Accents -->
+    <path
+        android:fillColor="#FA1C6D"
+        android:pathData="M 86,22 C 86.5,21.5 87.5,21.5 88,22 L 89,23 Z" />
+</vector>
