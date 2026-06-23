@@ -2,18 +2,45 @@ workflows:
   android-debug:
     name: NexSketch Debug APK
 
+    max_build_duration: 60
+
     environment:
       java: 17
 
-    scripts:
-      - chmod +x gradlew
-      - ./gradlew clean
-      - ./gradlew assembleDebug
+      # Android SDK setup (VERY IMPORTANT)
+      android_signing:
+        - keystore_reference
 
-    artifacts:
-      - app/build/outputs/**/*.apk
+      groups:
+        - google_play
+
+      vars:
+        GRADLE_OPTS: "-Xmx4096m"
 
     cache:
       cache_paths:
         - ~/.gradle/caches
         - ~/.gradle/wrapper
+        - ~/.android/build-cache
+
+    scripts:
+      - name: Set permissions
+        script: chmod +x gradlew
+
+      - name: Clean project
+        script: ./gradlew clean
+
+      - name: Download dependencies
+        script: ./gradlew dependencies
+
+      - name: Build Debug APK
+        script: ./gradlew assembleDebug --stacktrace --no-daemon
+
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+      - app/build/outputs/**/*.apk
+
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com
