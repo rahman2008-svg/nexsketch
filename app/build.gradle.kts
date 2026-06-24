@@ -9,12 +9,13 @@ plugins {
 
 android {
     namespace = "com.aistudio.nexsketch.artstudio"
-    compileSdk = 36
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.aistudio.nexsketch.artstudio"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
+
         versionCode = 1
         versionName = "1.0"
 
@@ -23,10 +24,12 @@ android {
 
     signingConfigs {
         create("release") {
-            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/my-upload-key.jks"
+            val keystorePath = System.getenv("KEYSTORE_PATH")
+                ?: "${rootDir}/my-upload-key.jks"
+
             storeFile = file(keystorePath)
             storePassword = System.getenv("STORE_PASSWORD")
-            keyAlias = "upload"
+            keyAlias = System.getenv("KEY_ALIAS") ?: "upload"
             keyPassword = System.getenv("KEY_PASSWORD")
         }
 
@@ -41,7 +44,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            isCrunchPngs = false
+            isShrinkResources = false
 
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -75,11 +78,6 @@ android {
     }
 }
 
-secrets {
-    propertiesFileName = ".env"
-    defaultPropertiesFileName = ".env.example"
-}
-
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.firebase.bom))
@@ -87,16 +85,18 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
 
-    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material.icons.core)
     implementation(libs.androidx.compose.material.icons.extended)
 
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
@@ -107,19 +107,19 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
 
-    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(libs.moshi.kotlin)
 
     implementation(libs.firebase.ai)
 
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
 
     ksp(libs.androidx.room.compiler)
     ksp(libs.moshi.kotlin.codegen)
