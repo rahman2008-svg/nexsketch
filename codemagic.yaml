@@ -20,9 +20,8 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Setup environment
+      - name: Setup local properties
         script: |
-          set -e
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Grant permission
@@ -33,7 +32,7 @@ workflows:
         script: |
           ./gradlew clean
 
-      - name: Build release AAB
+      - name: Build Release
         script: |
           ./gradlew bundleRelease
 
