@@ -1,16 +1,18 @@
 workflows:
   nexsketch_release:
     name: NexSketch Art Studio Release
+
     instance_type: mac_mini_m2
     max_build_duration: 60
 
     environment:
-      vars:
-        PACKAGE_NAME: "com.aistudio.nexsketch.artstudio"
-        JAVA_HOME: /Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
+      java: 17
 
       android_signing:
         - nexsketch_keystore
+
+      vars:
+        PACKAGE_NAME: com.aistudio.nexsketch.artstudio
 
     cache:
       cache_paths:
@@ -18,7 +20,11 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Set up local properties
+      - name: Checkout
+        script: |
+          echo "Starting build..."
+
+      - name: Set Android SDK path
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
@@ -30,7 +36,7 @@ workflows:
         script: |
           ./gradlew clean
 
-      - name: Build Release AAB
+      - name: Build release bundle
         script: |
           ./gradlew bundleRelease
 
