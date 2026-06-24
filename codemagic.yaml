@@ -1,34 +1,59 @@
 workflows:
-  android-debug:
-    name: NexSketch Debug APK
+  android-release:
+    name: NexSketch Art Studio Release
 
-    max_build_duration: 60
+    max_build_duration: 120
 
     environment:
       java: 17
-
-      vars:
-        GRADLE_OPTS: "-Xmx4096m"
 
     cache:
       cache_paths:
         - ~/.gradle/caches
         - ~/.gradle/wrapper
 
-    scripts:
-      - name: Grant execute permission
-        script: chmod +x gradlew
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
 
-      - name: Clean project
-        script: ./gradlew clean
+    scripts:
+      - name: Set Android SDK
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+
+      - name: Grant Gradle Permission
+        script: |
+          chmod +x gradlew
+
+      - name: Clean Project
+        script: |
+          ./gradlew clean
 
       - name: Build Debug APK
-        script: ./gradlew assembleDebug --stacktrace
+        script: |
+          ./gradlew assembleDebug
+
+      - name: Build Release APK
+        script: |
+          ./gradlew assembleRelease
+
+      - name: Build Release Bundle
+        script: |
+          ./gradlew bundleRelease
 
     artifacts:
-      - app/build/outputs/apk/debug/*.apk
+      - app/build/outputs/**/*.apk
+      - app/build/outputs/**/*.aab
+      - app/build/reports/**
 
     publishing:
       email:
         recipients:
-          - your-email@example.com
+          - your-email@gmail.com
+        notify:
+          success: true
+          failure: true
