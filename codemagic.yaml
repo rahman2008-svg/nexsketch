@@ -22,9 +22,9 @@ workflows:
     scripts:
       - name: Checkout
         script: |
-          echo "Starting build..."
+          echo "Starting NexSketch build..."
 
-      - name: Set Android SDK path
+      - name: Set Android SDK
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
@@ -36,7 +36,7 @@ workflows:
         script: |
           ./gradlew clean
 
-      - name: Build release bundle
+      - name: Build Release AAB
         script: |
           ./gradlew bundleRelease
 
