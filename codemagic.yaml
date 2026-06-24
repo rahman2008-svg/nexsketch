@@ -20,12 +20,9 @@ workflows:
         - ~/.gradle/wrapper
 
     scripts:
-      - name: Checkout
+      - name: Prepare environment
         script: |
-          echo "Starting NexSketch build..."
-
-      - name: Set Android SDK
-        script: |
+          set -e
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Grant permission
@@ -36,7 +33,7 @@ workflows:
         script: |
           ./gradlew clean
 
-      - name: Build Release AAB
+      - name: Build release
         script: |
           ./gradlew bundleRelease
 
